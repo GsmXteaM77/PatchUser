@@ -70,7 +70,7 @@ jobs:
             "https://raw.githubusercontent.com/Patch-U/Patcher.jar/refs/heads/main/PatcherU" \
             "Patcher.py"
 
-      - name: Commit changes
+            - name: Commit changes
         shell: bash
         run: |
           set -e
@@ -89,4 +89,12 @@ jobs:
           fi
 
           git commit -m "chore: sync Patch-U files"
-          git push
+
+          # Get the latest changes from main
+          git fetch origin main
+
+          # Rebase our sync commit on top of the latest main
+          git rebase origin/main
+
+          # Push updated main
+          git push origin HEAD:main
